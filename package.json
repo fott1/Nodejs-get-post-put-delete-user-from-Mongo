@@ -1,0 +1,20 @@
+{
+  "name": "nodeMongo",
+  "version": "1.0.0",
+  "description": "Node.js and MongoDb.",
+  "main": "Server.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "Node.js",
+    "mongoDb"
+  ],
+  "author": "fotiskaralis",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.13.3",
+    "express": "^4.13.3",
+    "mongoose": "^4.1.2"
+  }
+}
