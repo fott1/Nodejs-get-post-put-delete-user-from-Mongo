@@ -4,14 +4,17 @@ var bodyParser  =   require("body-parser");
 var router      =   express.Router();
 //this is the file i keep my schema and the database connection
 var mongoOp     =   require("./models/mongo"); //to models to pairnoume apo to afto to path.
+path = require('path');
 
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({"extended" : false}));
 
 router.get("/",function(req,res){ // sto vasiko rout mas leme ti na emfanizei. edo leme to klassiko hello
-    res.json({"error" : false,"message" : "Hello World"}); 
-});
+        res.sendFile(path.join(__dirname, 'index.html'));}); //gia na treksei to path, to ekana prwta require epano
+            //to dirname dhlwnei to vasiko directory, an einai se allo path tha htan res.sendFile(path.join(__dirname, '../dirNameHere', 'index.html'));
+router.get("/about",function(req,res){ // kanoyme to idio gia ena about page
+        res.sendFile(path.join(__dirname, 'about.html'));}); 
 
 router.route("/users") //gia na doume oti einai na doume prepei na pame sto /users
 	.get(function(req,res){ // otan kanoume get request exoume to request kai to response pou tha to epistrepsoume se ligo
@@ -21,7 +24,7 @@ router.route("/users") //gia na doume oti einai na doume prepei na pame sto /use
 	            if(err) {
 	                response = {"error" : true,"message" : "Error fetching data"};
 	            } else {
-	                response = {"error" : false,"message" : data}; //to response mas gemise oti dedomena vrike stin DB
+	                response = {"error" : false,"message" : data}; //to response mas edwse oti dedomena vrike stin DB
 	            }
 	            res.json(response); //kai edo me ena json ta dinoume ston xristi me to response
 	        });
@@ -120,5 +123,5 @@ router.route("/users") //gia na doume oti einai na doume prepei na pame sto /use
 
 app.use('/',router);
 
-app.listen(3000);
-console.log("Listening to PORT 3000");
+app.listen(3001);
+console.log("Listening to PORT 3001");
