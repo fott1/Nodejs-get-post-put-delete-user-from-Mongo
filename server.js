@@ -1,5 +1,5 @@
 var express     =   require("express"); //prepei na kanoume require ola afta pou xrisimopoioume
-var app         =   express(); // to app to petame se mia app metavliti(isos let na htan kalitera)
+var app         =   express(); // to app to petame se mia app metavliti
 var bodyParser  =   require("body-parser");
 var router      =   express.Router();
 //this is the file i keep my schema and the database connection
