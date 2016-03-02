@@ -1,0 +1,31 @@
+<html>
+<head>
+       <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+       <script>
+      $(document).ready(function(){
+        var name,email;
+        $("#submit").click(function(){
+          id=$("#id").val();
+          $.delete("http://localhost:3000//users/:id",{id: id}, function(data){
+            if(data==='done')
+              {
+                alert("Delete user success");
+              }
+          });
+        });
+      });
+</script>
+
+</head>
+   <body>
+      <form action="" method="delete" enctype="multipart/form-data">
+         <fieldset>
+            <label for="id">ID:</label>
+            <input type="text" id="id" name="id" placeholder="Enter a user ID" />
+            <br />
+            <input id="submit" type="submit" value="Delete User" /> Not working yet.
+         </fieldset>
+         <li><a href="/">Back to Home</a></li>
+      </form>
+   </body>
+</html>

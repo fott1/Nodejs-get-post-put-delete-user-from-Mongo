@@ -1,0 +1,35 @@
+<html>
+<head>
+       <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+       <script>
+      $(document).ready(function(){
+        var name,email;
+        $("#submit").click(function(){
+          name=$("#name").val();
+          email=$("#email").val();
+          $.post("http://localhost:3000/adduser",{name: name,email: email}, function(data){
+            if(data==='done')
+              {
+                alert("adduser success");
+              }
+          });
+        });
+      });
+</script>
+
+</head>
+   <body>
+      <form action="" method="post" enctype="multipart/form-data">
+         <fieldset>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" placeholder="Enter a full name" />
+            <br />
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Enter an email address" />
+            <br />
+            <input id="submit" type="submit" value="Create User" />
+         </fieldset>
+         <li><a href="/">Back to Home</a></li>
+      </form>
+   </body>
+</html>

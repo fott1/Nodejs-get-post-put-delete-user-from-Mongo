@@ -5,6 +5,8 @@ var router      =   express.Router();
 //this is the file i keep my schema and the database connection
 var mongoOp     =   require("./models/mongo"); //to models to pairnoume apo to afto to path.
 path = require('path');
+var formidable = require("formidable");
+var util = require('util');
 
 
 app.use(bodyParser.json());
@@ -16,9 +18,36 @@ router.get("/",function(req,res){ // sto vasiko rout mas leme ti na emfanizei. e
 router.get("/about",function(req,res){ // kanoyme to idio gia ena about page
         res.sendFile(path.join(__dirname, 'about.html'));}); 
 
+router.get("/adduser",function(req,res){
+        res.sendFile(path.join(__dirname, 'form.html'));}); 
+
+router.get("/deleteuser",function(req,res){
+        res.sendFile(path.join(__dirname, 'delete.html'));}); 
+
+router.route("/adduser")
+    .post(function(req,res){
+        var db = new mongoOp();
+        var response = {};
+        db.userEmail = req.body.email;
+        db.userName = req.body.name;
+
+        db.save(function(err){
+        // save() will run insert() command of MongoDB.
+        // it will add new data in collection.
+            if(err) {
+                response = {"error" : true,"message" : "Error adding User"};
+            } else {
+                response = {"error" : false,"message" : "User added"};
+            }
+           res.json(response);
+
+        });
+
+    });
+
 router.route("/users") //gia na doume oti einai na doume prepei na pame sto /users
 	.get(function(req,res){ // otan kanoume get request exoume to request kai to response pou tha to epistrepsoume se ligo
-	        var response = {}; // dimiourgoume ena adeio object, an instance pou lene sinexeia
+            var response = {}; // dimiourgoume ena adeio object, an instance pou lene sinexeia
 	        mongoOp.find({},function(err,data){ //kai edo arxizei i anazitisi apo tin vasi, petame mesa kai ena callback function
 	        // Mongo command to fetch all data from collection.
 	            if(err) {
@@ -73,7 +102,7 @@ router.route("/users") //gia na doume oti einai na doume prepei na pame sto /use
         // first find out record exists or not
         // if it does then update the record
         mongoOp.findById(req.params.id,function(err,data){ //pali arxizei psaxnei me vasi to ID
-            if(err) { //ena yparxei error. diladi an ayto to id einai TRUE
+            if(err) { //ean yparxei error. diladi an ayto to id einai TRUE
                 response = {"error" : true,"message" : "Error fetching data"};
             } else {
             // we got data from Mongo. Diaforetika pairnoume ola sta stoxeia apo tin Mongo Vasi mas
@@ -123,5 +152,5 @@ router.route("/users") //gia na doume oti einai na doume prepei na pame sto /use
 
 app.use('/',router);
 
-app.listen(3001);
-console.log("Listening to PORT 3001");
+app.listen(3000);
+console.log("Listening to PORT 3000");
